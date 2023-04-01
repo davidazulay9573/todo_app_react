@@ -76,4 +76,4 @@ function TodoApp() {
 }
 
 export default TodoApp;
-localStorage.removeItem("todo");
+
