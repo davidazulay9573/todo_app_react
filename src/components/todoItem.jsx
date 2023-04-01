@@ -49,4 +49,3 @@ function TodoItem({
 
 export default TodoItem;
 
-/* <button className="btn btn-light">  <i class="bi bi-calendar4-week"></i> </button> */

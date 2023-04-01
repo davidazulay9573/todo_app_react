@@ -1,31 +1,17 @@
-import { useState } from "react";
+import useInput from "../hooks/useInput";
 
-function TodoForm({ onSubmit, buttonTitle, targetValues }) {
-  const [input, setInput] = useState(  { 
-     content: targetValues.content, 
-      date: targetValues.dueDate,
-      clock: targetValues.dueClock,
-    }
+function TodoForm({ onSubmit, buttonTitle, initialValues = {content:"",date: "",clock: ""}}) {
+  const [handleInputChange, handleSubmit, error, inputs] = useInput(
+    initialValues,
+    onSubmit
   );
-  const [error, setError] = useState(null);
-  const handleInputChange = (e) => {
-    setInput({ ...input, content: e.target.value });
-    setError(null);
-  };
 
-  const handleSubmit = () => {
-    if (input.content.length < 2) {
-      setError("Input is required for at least two characters");
-      return;
-    }
-    onSubmit(input);
-    setInput({ content: "", date: " ? ", clock: " ? " });
-  };
   return (
     <div style={{ textAlign: "center" }}>
       <div>
         <input
-          value={input.content}
+          name="content"
+          value={inputs.content}
           onInput={handleInputChange}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -42,16 +28,18 @@ function TodoForm({ onSubmit, buttonTitle, targetValues }) {
       <span className="input-group-text">You can specify a due time </span>
       <div style={{ display: "flex" }}>
         <input
-          value={input.date}
-          onInput={(e) => setInput({ ...input, date: e.target.value })}
-          className="form-control"
+          name="date"
           type="date"
+          value={inputs.date}
+          onInput={handleInputChange}
+          className="form-control"
         />
         <input
-          value={input.clock}
-          onInput={(e) => setInput({ ...input, clock: e.target.value })}
-          className="form-control"
+          name="clock"
           type="time"
+          value={inputs.clock}
+          onInput={handleInputChange}
+          className="form-control"
         />
       </div>
       <br />

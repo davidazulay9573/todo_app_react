@@ -10,7 +10,7 @@ function TodoList({
   return (
     <div className="todo-list">
       <ul className="list-group">
-        {todos
+        {[...todos]
           .sort((a, b) => (a.thumbtack ? 1 : -1))
           .sort((a, b) => (a.isComplete ? 1 : -1))
           .map((todo) => (

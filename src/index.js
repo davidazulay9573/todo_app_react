@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import TodoApp from "./components/todoApp";
 import reportWebVitals from "./reportWebVitals";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -10,7 +10,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <TodoApp className="App" />
   </React.StrictMode>
 );
 document.body.style.backgroundColor = "rgba(0, 0, 0, 0.500)"
