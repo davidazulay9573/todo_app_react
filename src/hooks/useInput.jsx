@@ -1,35 +1,30 @@
 import { useState } from "react";
 
-function useInput(initialValues, onSubmit) {
-  const [inputs, setInputs] = useState({
-  content: initialValues.content,
-  date: initialValues.date,
-  clock: initialValues.clock,
-});
-
+function useInput(initialValues, onSubmit, validation) {
+  const [inputs, setInputs] = useState(initialValues);
   const [error, setError] = useState(null);
-  
-  const handleInputChange = (e) => {
-   if( e.target.name === 'content'){
-        setInputs({...inputs,content:e.target.value})
-   }
-   if( e.target.name === 'date'){
-        setInputs({...inputs,date:e.target.value})
-   }
-    if (e.target.name === "clock") {
-      setInputs({ ...inputs, clock: e.target.value });
-    }
-    setError(null);
+
+  const handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
   };
 
   const handleSubmit = () => {
+   const validationResult = validation(inputs);
 
-    if (inputs.content.length < 2) {
-      setError("Input is required for at least two characters");
-      return;
-    }
+   if (validationResult) {
+     setError(validationResult);
+     return;
+   }
+   
     onSubmit(inputs);
-    setInputs({ content: "", date: "", clock: "" });
+    setInputs(initialValues);
   };
   return [handleInputChange, handleSubmit, error, inputs];
 }

@@ -3,7 +3,9 @@ import useInput from "../hooks/useInput";
 function TodoForm({ onSubmit, buttonTitle, initialValues = {content:"",date: "",clock: ""}}) {
   const [handleInputChange, handleSubmit, error, inputs] = useInput(
     initialValues,
-    onSubmit
+    onSubmit,
+  (inputs) =>
+      inputs.content.length < 2 ? "must be at least 2 characters" : null,
   );
 
   return (
